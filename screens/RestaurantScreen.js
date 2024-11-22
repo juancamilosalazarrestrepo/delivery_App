@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Image } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native";
 import * as Icon from "react-native-feather";
@@ -7,11 +7,19 @@ import { useNavigation } from "@react-navigation/native";
 import { themeColors } from "../theme/index";
 import DishRow from "../components/DishRow";
 import CartIcon from "../components/CartIcon";
+import { useDispatch } from "react-redux";
+import { setRestaurant } from "../slices/resturantSlice";
 
 export default function RestaurantScreen() {
   const { params } = useRoute();
   const navigation = useNavigation();
   let item = params;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (item && item.id) {
+      dispatch(setRestaurant({ ...item }));
+    }
+  }, []);
 
   return (
     <View>
@@ -59,10 +67,9 @@ export default function RestaurantScreen() {
         <View className="pb-36 bg-white">
           <Text className="px-4 text-2xl font-bold ">Menu</Text>
           {/* dishes */}
-          {
-            item.dishes.map((dish,index)=><DishRow item={{...dish}} key={index}/>)
-          }
-
+          {item.dishes.map((dish, index) => (
+            <DishRow item={{ ...dish }} key={index} />
+          ))}
         </View>
       </ScrollView>
     </View>

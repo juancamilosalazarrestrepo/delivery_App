@@ -64,7 +64,7 @@ export const featured = {
           image: require("../assets/images/veganPizza.jpeg"),
         },
         {
-          id: 2,
+          id: 3,
           name: "Magarita Pizza",
           description: "tomato pizza",
           price: 10,
@@ -99,7 +99,7 @@ export const featured = {
           image: require("../assets/images/alitassss.webp"),
         },
         {
-          id: 2,
+          id: 3,
           name: "nuggets",
           description: "Cheezy garlic pizza",
           price: 10,
