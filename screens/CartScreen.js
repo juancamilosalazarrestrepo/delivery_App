@@ -12,6 +12,7 @@ import {
   selectCartItems,
   selectCartTotal,
 } from "../slices/cartSlice";
+import { urlFor } from "../sanity";
 
 export default function CartScreen() {
   const restaurant = useSelector(selectRestaurant);
@@ -24,10 +25,10 @@ export default function CartScreen() {
 
   useEffect(() => {
     const items = cartItems.reduce((group, item) => {
-      if (group[item.id]) {
-        group[item.id].push(item);
+      if (group[item._id]) {
+        group[item._id].push(item);
       } else {
-        group[item.id] = [item];
+        group[item._id] = [item];
       }
       return group;
     }, {});
@@ -83,7 +84,7 @@ export default function CartScreen() {
               <Text className="font-bold" style={{ color: themeColors.text }}>
                 {items.length}x{" "}
               </Text>
-              <Image source={dish.image} className="h-14 w-14 rounded-full" />
+              <Image source={{uri:urlFor(dish.image).url()}} className="h-14 w-14 rounded-full" />
               <Text className="flex-1 font-bold text-gray-700">
                 {dish.name}
               </Text>
@@ -91,7 +92,7 @@ export default function CartScreen() {
               <TouchableOpacity
                 className="p-1 rounded-full"
                 onPress={() => {
-                  dispatch(removeFromCart({ id: dish.id }));
+                  dispatch(removeFromCart({ id: dish._id }));
                 }}
                 style={{ backgroundColor: themeColors.bgColor(1) }}
               >
